@@ -1,0 +1,35 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  // Paths to all template files where Tailwind classes are used
+  content: [
+    "./src/**/*.{html,js,ts,jsx,tsx}", // React, Next.js, etc.
+    "./public/index.html", // Static HTML
+  ],
+
+  theme: {
+    extend: {
+      keyframes: {
+        shake: {
+          "0%, 100%": { transform: "translateX(0)" },
+          "25%": { transform: "translateX(-5px)" },
+          "75%": { transform: "translateX(5px)" },
+        },
+        pop: {
+          "0%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.3)" },
+          "100%": { transform: "scale(1)" },
+        },
+      },
+      animation: {
+        shake: "shake 0.4s ease",
+        pop: "pop 0.3s ease",
+      },
+    },
+  },
+
+  plugins: [
+    require("@tailwindcss/forms"), // Better form styles
+    require("@tailwindcss/typography"), // Prose formatting
+    require("@tailwindcss/aspect-ratio"), // Aspect ratio utilities
+  ],
+};
