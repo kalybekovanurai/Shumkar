@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 
 const videoMap: Record<string, string> = {
-  "Первый урок": "https://youtu.be/bR0NtC4fAN8",
+  "Первый урок": "https://youtu.be/_934LJkmxAU?si=LIIJ7oy1fIMG4RHa",
   "Второй урок": "https://www.youtube.com/watch?v=ysz5S6PUM-U",
 };
 

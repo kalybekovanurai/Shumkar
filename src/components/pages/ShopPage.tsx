@@ -40,8 +40,10 @@ const items: ShopItem[] = [
 
 export const ShopPage = () => {
   return (
-    <div className="min-h-screen  px-6 py-10">
-      <h1 className="text-3xl font-black text-[#2B5FBA] mb-8">🛒 Магазин</h1>
+    <div className="min-h-screen bg-[#FAFAF8] px-6 py-10">
+      <h1 className="text-3xl font-bold text-center mb-8 text-[#2B5FBA]">
+        🛒 Магазин
+      </h1>
 
       <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         {items.map((item) => (

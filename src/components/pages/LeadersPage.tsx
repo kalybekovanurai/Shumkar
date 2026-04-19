@@ -3,7 +3,7 @@ import { leaders } from "../data/leadersData";
 export const LeadersPage = () => {
   return (
     <div className="min-h-screen px-6 py-10 bg-[#FAFAF8] ">
-      <h1 className="text-3xl font-black text-[#2B5FBA] mb-8">🏆 Лидеры</h1>
+        <h1 className="text-3xl font-bold text-center mb-8 text-[#2B5FBA]">🏆 Лидеры</h1>
 
       <div className="max-w-2xl mx-auto space-y-4">
         {leaders.map((user, index) => (

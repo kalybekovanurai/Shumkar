@@ -1,4 +1,4 @@
-import Logo from "../../assets/icons/ShumkarLogo.svg";
+import Logo from "../../assets/icons/shumkarLogo2.svg";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
