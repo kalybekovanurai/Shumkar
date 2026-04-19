@@ -5,6 +5,7 @@ export type Level = {
   unlocked: boolean;
   completed?: boolean;
   isBonus?: boolean;
+  videoUrl?: string;
 };
 
 export type Module = {

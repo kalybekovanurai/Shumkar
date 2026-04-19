@@ -8,6 +8,7 @@ export const modules: Module[] = [
         type: "lesson",
         id: 101,
         title: "Сакральные места",
+        videoUrl: "https://youtu.be/_934LJkmxAU",
         unlocked: true,
       },
       {
@@ -20,7 +21,6 @@ export const modules: Module[] = [
         id: 2,
         unlocked: false,
       },
-    
     ],
   },
   {
@@ -30,6 +30,7 @@ export const modules: Module[] = [
         type: "lesson",
         id: 102,
         title: "Петроглифы",
+        videoUrl: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
         unlocked: true,
       },
       {
@@ -51,6 +52,7 @@ export const modules: Module[] = [
         type: "lesson",
         id: 103,
         title: "Почему это важно сохранять?",
+        videoUrl: "https://youtu.be/_934LJkmxAU",
         unlocked: true,
       },
       {
