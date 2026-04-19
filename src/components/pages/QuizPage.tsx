@@ -6,7 +6,7 @@ import { addTumars, loseLife } from "../store/slices/playerSlice";
 import { completeLevel } from "../store/slices/progressSlice";
 import { quizData } from "../data/quizData";
 
-const QuizPage = () => {
+export const QuizPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -91,7 +91,7 @@ const QuizPage = () => {
 
   return (
     <div
-      className={`min-h-screen flex flex-col items-center justify-center bg-[#F2EEE5] px-4 ${
+      className={`min-h-screen flex flex-col items-center justify-center bg-[#FAFAF8]  px-4 ${
         shake ? "animate-shake" : ""
       }`}
     >

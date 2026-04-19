@@ -1,13 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import QuizPage from "../pages/QuizPage";
-import LessonPage from "../pages/LessonPage";
 import { Map } from "../pages/Map";
 import { modules } from "../data/modules";
-
-import LeadersPage from "../pages/LeadersPage";
 import ShopPage from "../pages/ShopPage";
 import { AchievementsPage } from "../pages/AchievmentsPage";
 import { AppLayout } from "../layout/AppLayout";
+import { LessonPage } from "../pages/LessonPage";
+import { LeadersPage } from "../pages/LeadersPage";
 
 function AppRouter() {
   return (
