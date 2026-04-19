@@ -30,7 +30,7 @@ export const LeadersPage = () => {
             </div>
 
             <div className="text-[#2B5FBA] font-bold text-lg">
-              {user.score} XP
+              {user.score} тумар
             </div>
           </div>
         ))}
