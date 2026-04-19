@@ -1,4 +1,4 @@
-import Logo from "../../assets/icons/MurasGoLogo.png";
+import Logo from "../../assets/images/MurasGoLogo.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
@@ -59,17 +59,23 @@ const Header = ({
           className={getNavClass("/shop")}
         >
           МАГАЗИН
-        </button>
+        </button>  
+         <button
+        onClick={() => navigate("/achievements")}
+        className={getNavClass("/achievements")}
+      >
+      ДОСТИЖЕНИЯ
+      </button>
       </nav>
+   
 
       <div className="flex items-center justify-end gap-6">
         <div className="flex items-center gap-1 text-orange-500 font-bold text-xl animate-pulse">
           🔥 {streak}
         </div>
 
-        {/* tumars */}
         <div className="flex items-center gap-1.5 text-amber-500 font-semibold">
-          🟡 <span className="font-bold">{tumars}</span>
+          <span className="font-bold">{tumars}</span>
         </div>
 
         <div className="flex items-center gap-1">

@@ -29,7 +29,7 @@ export const Map = ({ modules }: Props) => {
   const path = buildPath(updatedModules);
 
   const handleClick = (item: any) => {
-    // 🎯 обычный уровень
+
     if (item.type === "level") {
       const level = item.data;
 
@@ -42,7 +42,6 @@ export const Map = ({ modules }: Props) => {
       }
     }
 
-    // 🎁 сундук (бонус)
     if (item.type === "chest") {
       navigate(`/quiz/${item.quizId}`, {
         state: { isBonus: true },
@@ -67,7 +66,6 @@ export const Map = ({ modules }: Props) => {
 
           return (
             <div key={index} className="flex flex-col items-center">
-              {/* NODE */}
               <div style={{ transform: `translateX(${offset}px)` }}>
                 {item.type === "level" ? (
                   <LevelNode
@@ -82,9 +80,7 @@ export const Map = ({ modules }: Props) => {
                   <ChestNode onClick={() => handleClick(item)} />
                 )}
               </div>
-
-              {/* Линия */}
-              {!isLast && <PathLine fromX={offset} toX={nextOffset} />}
+          {!isLast && <PathLine fromX={offset} toX={nextOffset} />}
             </div>
           );
         })}

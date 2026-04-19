@@ -1,39 +1,8 @@
-
-type Leader = {
-  id: number;
-  name: string;
-  avatar: string;
-  score: number;
-  streak: number;
-};
-
-const leaders: Leader[] = [
-  {
-    id: 1,
-    name: "Aruzhan",
-    avatar: "https://i.pravatar.cc/150?img=32",
-    score: 980,
-    streak: 12,
-  },
-  {
-    id: 2,
-    name: "Eldar",
-    avatar: "https://i.pravatar.cc/150?img=12",
-    score: 870,
-    streak: 8,
-  },
-  {
-    id: 3,
-    name: "Miras",
-    avatar: "https://i.pravatar.cc/150?img=5",
-    score: 760,
-    streak: 5,
-  },
-];
+import { leaders } from "../data/leadersData";
 
 const LeadersPage = () => {
   return (
-    <div className="min-h-screen bg-[#F1ECE2] px-6 py-10">
+    <div className="min-h-screen px-6 py-10">
       <h1 className="text-3xl font-black text-[#2B5FBA] mb-8">🏆 Лидеры</h1>
 
       <div className="max-w-2xl mx-auto space-y-4">

@@ -1,4 +1,4 @@
-import chest from "../../assets/icons/chest.png";
+import chest from "../../assets/images/chest.png";
 
 type Props = {
   onClick?: () => void;
