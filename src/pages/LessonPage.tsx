@@ -29,9 +29,21 @@ export const LessonPage = () => {
     }
   }, [dispatch, id]);
 
-  if (loading) return <div>Загрузка урока...</div>;
+  if (loading)
+    return (
+      <div className="flex items-center justify-center min-h-[320px]">
+        <p className="text-lg font-semibold text-[#2B5FBA]">
+          Загрузка урока...
+        </p>
+      </div>
+    );
   if (error) return <div>{error}</div>;
-  if (!lesson) return <div>Урок не найден</div>;
+  if (!lesson)
+    return (
+      <div className="flex items-center justify-center min-h-[320px]">
+        <p className="text-lg font-semibold text-[#2B5FBA]">Урок не найден</p>
+      </div>
+    );
 
   const videoUrl = getEmbedUrl(lesson.videoUrl);
   const nextQuizId = lesson.levelIds?.[0];

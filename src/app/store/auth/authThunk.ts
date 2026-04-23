@@ -1,36 +1,22 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import type { AuthUser } from "./auth";
-import { auth } from "../../../shared/configs/firebase";
+import type { AuthUser } from "./authSlice";
+import Shumkar from "../../../assets/images/happyShumkar.png";
 
-export const signInWithGoogle = createAsyncThunk<
+export const loginUser = createAsyncThunk<
   AuthUser,
   void,
   { rejectValue: string }
->("auth/signInWithGoogle", async (_, { rejectWithValue }) => {
+>("auth/loginUser", async (_, { rejectWithValue }) => {
   try {
-    const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
-
-    return {
-      uid: user.uid,
-      name: user.displayName || "Без имени",
-      email: user.email || "",
-      photoURL: user.photoURL || "",
+    const fakeUser: AuthUser = {
+      id: 1,
+      name: "Алиса",
+      email: "alisa@example.com",
+      photoURL: Shumkar,
     };
-  } catch (error: any) {
-    return rejectWithValue(error.message || "Ошибка входа через Google");
+
+    return fakeUser;
+  } catch (error) {
+    return rejectWithValue("Не удалось выполнить вход");
   }
 });
-
-export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
-  "auth/logoutUser",
-  async (_, { rejectWithValue }) => {
-    try {
-      await signOut(auth);
-    } catch (error: any) {
-      return rejectWithValue(error.message || "Ошибка выхода");
-    }
-  },
-);

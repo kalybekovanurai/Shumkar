@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import Shumkar from "../../../assets/images/happyShumkar.png";
+import { loginUser } from "./authThunk";
 
 export type AuthUser = {
   id: number;
@@ -11,6 +12,8 @@ export type AuthUser = {
 type AuthState = {
   user: AuthUser | null;
   isAuthenticated: boolean;
+  loading?: boolean;
+  error?: string | null;
 };
 
 const fakeUser: AuthUser = {
@@ -23,6 +26,8 @@ const fakeUser: AuthUser = {
 const initialState: AuthState = {
   user: fakeUser,
   isAuthenticated: true,
+  loading: false,
+  error: null,
 };
 
 const authSlice = createSlice({
@@ -44,6 +49,22 @@ const authSlice = createSlice({
       state.user = fakeUser;
       state.isAuthenticated = true;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.isAuthenticated = true;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Ошибка входа";
+      });
   },
 });
 
