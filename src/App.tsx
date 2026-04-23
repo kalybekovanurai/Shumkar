@@ -1,14 +1,9 @@
-import Header from "./components/landing/Header";
-import AppRouter from "./components/routes/AppRoutes";
+import AppRouter from "./app/routes/AppRoutes";
 
-const App = () => {
+export const App = () => {
   return (
-    <div className="min-h-screen bg-[#F2EEE5]  flex flex-col">
-      <Header />
-
+    <div className="h-[100dvh] bg-[#F2EEE5] flex flex-col overflow-hidden">
       <AppRouter />
     </div>
   );
 };
-
-export default App;

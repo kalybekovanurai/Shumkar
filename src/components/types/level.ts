@@ -2,10 +2,9 @@ export type Level = {
   type: "quiz" | "lesson";
   id: number;
   title?: string;
+  videoUrl?: string;
   unlocked: boolean;
   completed?: boolean;
-  isBonus?: boolean;
-  videoUrl?: string;
 };
 
 export type Module = {
@@ -13,4 +12,6 @@ export type Module = {
   levels: Level[];
 };
 
-export type PathItem = { type: "level"; data: Level } | { type: "chest" };
+export type PathItem =
+  | { type: "level"; data: Level }
+  | { type: "chest"; quizId: number };
