@@ -11,7 +11,6 @@ import type { RootState } from "../app/store/store";
 import { ImageChoiceQuestion } from "../features/game/ImageChoiceQuestion";
 import { SequenceByClickGame } from "../features/game/SequenceByClickGame";
 import { GameStatsCompact } from "../features/game/components/GameStatsCompact";
-import { GameLevelHeader } from "../features/game/components/GameLevelHeader";
 import background from "../assets/images/backgroundOthers.png";
 import { useAppDispatch, useAppSelector } from "../app/store/hooks";
 import { getLevelById, submitLevel } from "../app/store/level/levelThunk";
@@ -23,12 +22,16 @@ export const LevelGamePage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { level, loading, error } = useAppSelector((state) => state.level);
+  const levelState = useAppSelector((state) => state.level);
+  const level = levelState?.level ?? null;
+  const loading = levelState?.loading ?? false;
+  const error = levelState?.error ?? null;
 
   const [step, setStep] = useState(0);
   const [isVictory, setIsVictory] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
-  const [sequenceOrder, setSequenceOrder] = useState<number[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<number, number>
+  >({});
 
   const streak = useSelector((state: RootState) => state.player.streak ?? 0);
   const lives = useSelector((state: RootState) => state.player.lives ?? 0);
@@ -41,7 +44,15 @@ export const LevelGamePage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[calc(100dvh-84px)] flex items-center justify-center bg-[#F7F3EA]">
+      <div
+        className="min-h-[calc(100dvh-84px)] flex items-center justify-center"
+        style={{
+          backgroundImage: `linear-gradient(rgba(247,243,234,0.68), rgba(247,243,234,0.68)), url(${background})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         Загрузка уровня...
       </div>
     );
@@ -49,8 +60,16 @@ export const LevelGamePage = () => {
 
   if (error) {
     return (
-      <div className="min-h-[calc(100dvh-84px)] flex items-center justify-center bg-[#F7F3EA] px-4">
-        <div className="bg-white rounded-3xl shadow-xl px-8 py-6 text-center max-w-lg">
+      <div
+        className="min-h-[calc(100dvh-84px)] flex items-center justify-center px-4"
+        style={{
+          backgroundImage: `linear-gradient(rgba(247,243,234,0.68), rgba(247,243,234,0.68)), url(${background})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="bg-white/90 rounded-3xl shadow-xl px-8 py-6 text-center max-w-lg">
           <p className="text-lg font-semibold text-red-500">
             {typeof error === "string" ? error : "Произошла ошибка"}
           </p>
@@ -60,7 +79,19 @@ export const LevelGamePage = () => {
   }
 
   if (!level) {
-    return <div className="text-center mt-10">Уровень не найден</div>;
+    return (
+      <div
+        className="min-h-[calc(100dvh-84px)] flex items-center justify-center"
+        style={{
+          backgroundImage: `linear-gradient(rgba(247,243,234,0.68), rgba(247,243,234,0.68)), url(${background})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        Уровень не найден
+      </div>
+    );
   }
 
   const pictureQuestions = level.pictureQuestions ?? [];
@@ -73,14 +104,15 @@ export const LevelGamePage = () => {
   const totalQuestions = pictureQuestions.length;
   const isSequenceStep = step >= totalQuestions;
 
-  const handleNextQuestion = (selectedOptionId: number) => {
-    setSelectedOptions((prev) => [...prev, selectedOptionId]);
+  const handleNextQuestion = (questionId: number, selectedOptionId: number) => {
+    setSelectedOptions((prev) => ({
+      ...prev,
+      [questionId]: selectedOptionId,
+    }));
     setStep((prev) => prev + 1);
   };
 
   const handleFinishLevel = async (finalSequenceOrder: number[]) => {
-    setSequenceOrder(finalSequenceOrder);
-
     const resultAction = await dispatch(
       submitLevel({
         levelId,
@@ -92,9 +124,11 @@ export const LevelGamePage = () => {
     );
 
     if (submitLevel.fulfilled.match(resultAction)) {
-      dispatch(completeLevel(levelId));
-      dispatch(setBestStreak(streak));
-      setIsVictory(true);
+      if (resultAction.payload.passed) {
+        dispatch(completeLevel(levelId));
+        dispatch(setBestStreak(streak));
+        setIsVictory(true);
+      }
     }
   };
 
@@ -102,8 +136,7 @@ export const LevelGamePage = () => {
     dispatch(resetPlayer());
     setStep(0);
     setIsVictory(false);
-    setSelectedOptions([]);
-    setSequenceOrder([]);
+    setSelectedOptions({});
   };
 
   const handleBackToMap = () => {
@@ -114,40 +147,48 @@ export const LevelGamePage = () => {
 
   return (
     <div
-      className="h-[calc(100dvh-84px)] flex flex-col overflow-hidden"
+      className="min-h-[calc(100dvh-84px)]"
       style={{
-        backgroundImage: `linear-gradient(rgba(247,243,234,0.92), rgba(247,243,234,0.92)), url(${background})`,
+        backgroundImage: `linear-gradient(rgba(247,243,234,0.66), rgba(247,243,234,0.66)), url(${background})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="shrink-0 px-3 pt-2">
-        <GameStatsCompact />
-      </div>
+      <div className="max-w-[1000px] mx-auto px-4 md:px-5 pt-3 pb-4">
+        <div className="mb-3">
+          <GameStatsCompact />
+        </div>
 
-      <GameLevelHeader title={level.title} isBonus={isBonusLevel} />
-
-      <div className="flex-1 min-h-0 px-2 pb-2">
-        {!isSequenceStep ? (
-          pictureQuestions[step] ? (
-            <ImageChoiceQuestion
-              key={pictureQuestions[step].id}
-              question={pictureQuestions[step].question}
-              options={pictureQuestions[step].options}
-              hint={pictureQuestions[step].hint}
-              onNext={handleNextQuestion}
+        <div className="rounded-[24px] bg-white/42 border border-[#E8E0D2] shadow-sm backdrop-blur-[2px] px-3 md:px-4 py-3 md:py-4">
+          {!isSequenceStep ? (
+            pictureQuestions[step] ? (
+              <ImageChoiceQuestion
+                key={pictureQuestions[step].id}
+                levelTitle={level.title}
+                levelNumber={level.id}
+                questionId={pictureQuestions[step].id}
+                question={pictureQuestions[step].question}
+                options={pictureQuestions[step].options}
+                hint={pictureQuestions[step].hint}
+                onNext={handleNextQuestion}
+                rewardMultiplier={rewardMultiplier}
+                currentStep={step + 1}
+                totalSteps={pictureQuestions.length}
+              />
+            ) : null
+          ) : (
+            <SequenceByClickGame
+              key={`sequence-${level.id}`}
+              levelTitle={level.title}
+              levelNumber={level.id}
+              items={sequenceGame}
+              hint={sequenceHint}
+              onFinish={handleFinishLevel}
               rewardMultiplier={rewardMultiplier}
             />
-          ) : null
-        ) : (
-          <SequenceByClickGame
-            key={`sequence-${level.id}`}
-            items={sequenceGame}
-            hint={sequenceHint}
-            onFinish={handleFinishLevel}
-            rewardMultiplier={rewardMultiplier}
-          />
-        )}
+          )}
+        </div>
       </div>
 
       <ResultModal

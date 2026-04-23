@@ -38,7 +38,7 @@ export const LessonPage = () => {
 
   return (
     <div className="h-[calc(100dvh-88px)] bg-[#F7F3EA] px-3 md:px-4 py-3 md:py-4 overflow-hidden">
-      <div className="h-full max-w-5xl mx-auto bg-[#F3EAD6] rounded-[28px] p-4 md:p-5 shadow-lg flex flex-col">
+      <div className="h-full max-w-3xl mx-auto bg-[#F3EAD6] rounded-[28px] p-4 md:p-5 shadow-lg flex flex-col">
         <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 mb-4 shrink-0">
           <button
             onClick={() => navigate("/")}

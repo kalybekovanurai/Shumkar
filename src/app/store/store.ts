@@ -8,6 +8,7 @@ import modulesReducer from "./modules/modulesSlice";
 import leadersReducer from "./leaders/leadersSlice";
 import lessonReducer from "./lesson/lessonSlice";
 import levelReducer from "./level/levelSlice";
+import achievementsReducer from "./achievements/achievementsSlice";
 
 const rootReducer = combineReducers({
   player: playerReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   leaders: leadersReducer,
   lesson: lessonReducer,
   level: levelReducer,
+  achievements: achievementsReducer,
 });
 
 const persistConfig = {

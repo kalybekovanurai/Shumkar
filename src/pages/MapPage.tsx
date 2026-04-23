@@ -13,26 +13,38 @@ import { LevelNode } from "../entities/level/LevelNode";
 import { ChestNode } from "../entities/level/ChestNode";
 import PathLine from "../entities/level/PathLine";
 import { getModules } from "../app/store/modules/modulesThunk";
+import { getProgressByUserId } from "../app/store/progress/progressThunk";
 
 export const MapPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const progress = useSelector((state: RootState) => state.progress.levels);
-  const { modules, loading, error } = useSelector(
-    (state: RootState) => state.modules,
-  );
+  const user = useSelector((state: RootState) => state.auth.user);
+
+  const progressLevels =
+    useSelector((state: RootState) => state.progress.levels) ?? {};
+
+  const modulesState = useSelector((state: RootState) => state.modules);
+  const modules = modulesState?.modules ?? [];
+  const loading = modulesState?.loading ?? false;
+  const error = modulesState?.error ?? null;
 
   useEffect(() => {
     dispatch(getModules());
-  }, [dispatch]);
+
+    const hasProgress = Object.keys(progressLevels).length > 0;
+
+    if (user?.id && !hasProgress) {
+      dispatch(getProgressByUserId(user.id));
+    }
+  }, [dispatch, user?.id, progressLevels]);
 
   const updatedModules = modules.map((module) => ({
     ...module,
     levels: module.levels.map((lvl) => ({
       ...lvl,
-      unlocked: progress[lvl.id]?.unlocked ?? lvl.unlocked ?? false,
-      completed: progress[lvl.id]?.completed ?? lvl.completed ?? false,
+      unlocked: progressLevels[lvl.id]?.unlocked ?? lvl.unlocked ?? false,
+      completed: progressLevels[lvl.id]?.completed ?? lvl.completed ?? false,
     })),
   }));
 
@@ -42,19 +54,21 @@ export const MapPage = () => {
     if (item.type === "level") {
       const level = item.data;
 
-      if (!level.unlocked) return;
+      if (!level?.unlocked) return;
+      if (!level?.id) return;
 
       if (level.type === "quiz") {
         navigate(`/quiz/${level.id}`);
-      } else {
+      } else if (level.type === "lesson") {
         navigate(`/lesson/${level.id}`);
       }
     }
 
     if (item.type === "chest") {
       const bonusId = item.quizId;
-      const bonusProgress = progress[bonusId];
+      const bonusProgress = progressLevels[bonusId];
 
+      if (!bonusId) return;
       if (!bonusProgress?.unlocked) return;
 
       navigate(`/quiz/${bonusId}`, {
@@ -76,7 +90,9 @@ export const MapPage = () => {
   if (error) {
     return (
       <div className="min-h-[calc(100dvh-84px)] flex items-center justify-center bg-[#F7F3EA] px-4">
-        <p className="text-center text-red-500 font-semibold">{error}</p>
+        <p className="text-center text-red-500 font-semibold">
+          {typeof error === "string" ? error : "Ошибка загрузки карты"}
+        </p>
       </div>
     );
   }
@@ -86,7 +102,7 @@ export const MapPage = () => {
       className="w-full min-h-[calc(100dvh-84px)] bg-center bg-cover"
       style={{
         backgroundImage: `linear-gradient(rgba(247,243,234,0.70), rgba(247,243,234,0.70)), url(${background})`,
-        backgroundRepeat: "no-repeat",
+        backgroundSize: "auto",
       }}
     >
       <div className="max-w-md sm:max-w-lg md:max-w-xl mx-auto pt-8 sm:pt-10 md:pt-14 pb-24 px-4 flex flex-col items-center">
@@ -112,8 +128,8 @@ export const MapPage = () => {
                 ) : (
                   <ChestNode
                     onClick={() => handleClick(item)}
-                    unlocked={progress[item.quizId]?.unlocked ?? false}
-                    completed={progress[item.quizId]?.completed ?? false}
+                    unlocked={progressLevels[item.quizId]?.unlocked ?? false}
+                    completed={progressLevels[item.quizId]?.completed ?? false}
                   />
                 )}
               </div>

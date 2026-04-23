@@ -9,52 +9,58 @@ export const GameStatsCompact = () => {
 
   const stats = [
     {
-      label: "Жизни",
+      id: "lives",
+      title: "Жизни",
       value: lives,
-      icon: "❤️",
-      bg: "bg-[#FFF1F3]",
-      border: "border-[#F8D7DF]",
+      icon: "💗",
+      cardClass: "bg-[#FDF2F6]/88 border-[#F2CDD7]",
     },
     {
-      label: "XP",
+      id: "xp",
+      title: "XP",
       value: xp,
       icon: "⭐",
-      bg: "bg-[#FFF8E6]",
-      border: "border-[#F3E0A2]",
+      cardClass: "bg-[#FFFBEF]/88 border-[#EFD894]",
     },
     {
-      label: "Серия",
+      id: "streak",
+      title: "Серия",
       value: streak,
       icon: "🔥",
-      bg: "bg-[#FFF3E8]",
-      border: "border-[#F6D2B8]",
+      cardClass: "bg-[#FFF6F0]/88 border-[#EDC5A8]",
     },
     {
-      label: "Тумары",
+      id: "tumars",
+      title: "Тумары",
       value: tumars,
       icon: "🪙",
-      bg: "bg-[#FFF8E6]",
-      border: "border-[#F3E0A2]",
+      cardClass: "bg-[#FFFBEF]/88 border-[#EFD894]",
     },
   ];
 
   return (
-    <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
       {stats.map((stat) => (
         <div
-          key={stat.label}
-          className={`rounded-[18px] border ${stat.border} ${stat.bg} px-3 py-2.5 shadow-sm`}
+          key={stat.id}
+          className={`
+            rounded-[18px] border shadow-sm backdrop-blur-[2px]
+            px-4 py-3 md:px-4 md:py-3
+            min-h-[92px] md:min-h-[96px]
+            ${stat.cardClass}
+          `}
         >
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/80 flex items-center justify-center text-lg md:text-xl shrink-0">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 md:w-11 md:h-11 rounded-full bg-white/85 flex items-center justify-center text-xl shrink-0">
               {stat.icon}
             </div>
 
-            <div className="min-w-0">
-              <p className="text-[11px] md:text-xs text-[#6B7280] leading-none">
-                {stat.label}
+            <div className="flex-1 min-w-0">
+              <p className="text-sm text-[#6B7280] leading-none">
+                {stat.title}
               </p>
-              <p className="text-xl md:text-3xl font-black text-[#1E2A44] leading-none mt-1">
+
+              <p className="mt-3 text-3xl md:text-[42px] font-black text-[#102040] leading-none">
                 {stat.value}
               </p>
             </div>

@@ -5,10 +5,26 @@ import type {
   SequenceItem,
 } from "./types";
 
+const BASE_URL = "https://nonfissile-pomaceous-anita.ngrok-free.dev";
+
+const normalizeImageUrl = (image: string | undefined | null) => {
+  if (!image) return "";
+
+  if (image.startsWith("http://") || image.startsWith("https://")) {
+    return image;
+  }
+
+  if (image.startsWith("/")) {
+    return `${BASE_URL}${image}`;
+  }
+
+  return `${BASE_URL}/${image}`;
+};
+
 const mapOption = (option: any): ImageOption => ({
   id: Number(option.id),
   text: option.text ?? "",
-  image: option.image ?? "",
+  image: normalizeImageUrl(option.image),
   correct: Boolean(option.correct),
 });
 
@@ -25,7 +41,7 @@ const mapPictureQuestion = (question: any): PictureQuestion => ({
 const mapSequenceItem = (item: any): SequenceItem => ({
   id: Number(item.id),
   text: item.text ?? "",
-  image: item.image ?? "",
+  image: normalizeImageUrl(item.image),
   order: Number(item.order ?? 0),
 });
 

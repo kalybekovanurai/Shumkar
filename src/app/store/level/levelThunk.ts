@@ -1,5 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import type { LevelGame, SubmitLevelPayload } from "./types";
+import type {
+  LevelGame,
+  SubmitLevelPayload,
+  SubmitLevelResponse,
+} from "./types";
 import { axiosInstance } from "../../../shared/configs/axiosInstance";
 import { mapLevelFromApi } from "./levelMapper";
 
@@ -37,13 +41,16 @@ export const getLevelById = createAsyncThunk<
 });
 
 export const submitLevel = createAsyncThunk<
-  { success: boolean; levelId: number },
+  SubmitLevelResponse,
   { levelId: number; payload: SubmitLevelPayload },
   { rejectValue: string }
 >("level/submit", async ({ levelId, payload }, { rejectWithValue }) => {
   try {
-    await axiosInstance.post(`${API}/${levelId}/submit`, payload);
-    return { success: true, levelId };
+    const response = await axiosInstance.post(
+      `${API}/${levelId}/submit`,
+      payload,
+    );
+    return response.data;
   } catch (error: any) {
     console.log("SUBMIT PAYLOAD:", payload);
     console.log("SUBMIT ERROR RESPONSE:", error?.response?.data);

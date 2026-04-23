@@ -29,8 +29,15 @@ export interface LevelGame {
 }
 
 export interface SubmitLevelPayload {
-  selectedOptions: number[];
+  selectedOptions: Record<number, number>;
   sequenceOrder: number[];
+}
+
+export interface SubmitLevelResponse {
+  levelId: number;
+  score: number;
+  total: number;
+  passed: boolean;
 }
 
 export interface LevelState {
