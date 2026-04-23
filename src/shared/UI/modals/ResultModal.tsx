@@ -35,7 +35,13 @@ export const ResultModal = ({
         </div>
 
         <div className="border-t border-gray-100 bg-[#F8F8F8] p-4">
-          <Button variant="primary" size="lg" fullWidth onClick={onClose}>
+          <Button
+            variant="primary"
+            size="lg"
+            fullWidth
+            onClick={onClose}
+            className={buttonClass}
+          >
             Продолжить
           </Button>
         </div>

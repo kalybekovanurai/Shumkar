@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import AppRouter from "./app/routes/AppRoutes";
 import { useAppDispatch, useAppSelector } from "./app/store/hooks";
 import { getProgressByUserId } from "./app/store/progress/progressThunk";
+import { AppRouter } from "./app/routes/AppRoutes";
 
 export const App = () => {
   const dispatch = useAppDispatch();

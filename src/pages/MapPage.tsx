@@ -79,9 +79,9 @@ export const MapPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[calc(100dvh-84px)] flex items-center justify-center bg-[#F7F3EA]">
+      <div className="flex items-center justify-center min-h-[320px]">
         <p className="text-lg font-semibold text-[#2B5FBA]">
-          Загрузка карты...
+          Загрузка уровней...
         </p>
       </div>
     );
