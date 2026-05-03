@@ -1,69 +1,79 @@
-# React + TypeScript + Vite
+# 🦅 Shumkar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Shumkar is a gamified educational platform for children.  
+It combines video-based lessons with interactive games to reinforce knowledge and track user progress.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
 
-## Expanding the ESLint configuration
+The platform is designed to make learning engaging through gameplay mechanics.  
+Users first watch a lesson and then complete interactive tasks such as quizzes and sequence-based challenges.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The application includes a reward system, progress tracking, and map-based level navigation.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Video-based lessons  
+- Interactive quiz system (image choice, sequence ordering)  
+- Level progression with map navigation  
+- Reward system (tumars, XP)  
+- Lives and streak mechanics  
+- In-app shop (hints, shields, skins)  
+- Achievements and leaderboard  
+- Persistent state using Redux Persist  
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Tech Stack
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- React  
+- TypeScript  
+- Redux Toolkit  
+- Redux Persist  
+- React Router  
+- Tailwind CSS  
+- Axios  
+
+---
+
+## Architecture
+
+The project follows **Feature-Sliced Design (FSD)**:
+
+```txt
+src/
+  app/        # application setup (store, routing)
+  pages/      # route-level components
+  widgets/    # layout and large UI blocks
+  features/   # business logic (game, shop, profile)
+  entities/   # domain models (level, player, progress)
+  shared/     # reusable components, utils, api
+
+
+  Key Principles
+Separation of concerns between UI, state, and business logic
+Game logic extracted into custom hooks
+Redux used as a single source of truth
+Local storage handled via redux-persist
+Getting Started
+git clone https://github.com/kalybekovanurai/Shumkar.git
+cd Shumkar
+npm install
+npm run dev
+Build
+npm run build
+Project Structure Highlights
+features/game — core gameplay logic and UI
+features/level-game — level execution logic (custom hooks)
+entities/level — level data and API mapping
+entities/player — player state (lives, XP, currency)
+features/map — map generation and navigation logic
+Future Improvements
+AI-based assistant for lessons
+Voice support for younger users
+Mobile adaptation
+Adaptive difficulty system
+Enhanced analytics and personalization
