@@ -1,18 +1,22 @@
 import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../../app/store";
-import { shopItems, tabLabels, type ShopCategory, type ShopItem } from "./shopData";
-import { addHint, addLife, addShield, restoreStreak, setSkin, spendTumars } from "../../app/store/player/playerSlice";
-import { PageBackgroundLayout } from "../../shared/UI/PageBackgroundLayout";
-import { ShopInventoryCard } from "./ShopInventoryCard";
-import { ShopCurrentSkinCard } from "./ShopCurrentSkinCard";
-import { Button } from "../../shared/UI/Button";
-import { ShopItemCard } from "./ShopItemCard";
-import { ResultModal } from "../../shared/UI/modals/ResultModal";
-
+import type { AppDispatch, RootState } from "../../app/store";
+import {
+  shopItems,
+  tabLabels,
+  type ShopCategory,
+  type ShopItem,
+} from "../../features/shop/model/shopData";
+import { PageBackgroundLayout } from "../../shared/ui/background/PageBackgroundLayout";
+import { ShopInventoryCard } from "../../features/shop/ui/ShopInventoryCard";
+import { ShopCurrentSkinCard } from "../../features/shop/ui/ShopCurrentSkinCard";
+import { ResultModal } from "../../shared/ui/modals/ResultModal";
+import { ShopItemCard } from "../../features/shop/ui/ShopItemCard";
+import { buyShopItem } from "../../features/shop/model/shopActions";
+import { Button } from "../../shared/ui/button/Button";
 
 export const ShopPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const { tumars, lives, hints, shields, skin } = useSelector(
     (state: RootState) => state.player,
@@ -29,52 +33,13 @@ export const ShopPage = () => {
     [activeTab],
   );
 
-  const openSuccess = (text: string) => {
-    setModalTitle("Покупка успешна 🎉");
-    setModalText(text);
-    setModalMood("happy");
-    setModalOpen(true);
-  };
-
-  const openError = (text: string) => {
-    setModalTitle("Недостаточно тумаров 😢");
-    setModalText(text);
-    setModalMood("sad");
-    setModalOpen(true);
-  };
-
   const handleBuy = (item: ShopItem) => {
-    if (tumars < item.price) {
-      openError("Собери ещё немного тумаров и возвращайся в магазин.");
-      return;
-    }
+    const result = buyShopItem(item, tumars, dispatch);
 
-    dispatch(spendTumars(item.price));
-
-    switch (item.id) {
-      case 1:
-        dispatch(addHint());
-        openSuccess("Ты получил подсказку 🧩");
-        break;
-      case 2:
-        dispatch(addShield());
-        openSuccess("Ты получил щит 🛡️");
-        break;
-      case 3:
-        dispatch(addLife());
-        openSuccess("Ты получил +1 жизнь ❤️");
-        break;
-      case 4:
-        dispatch(restoreStreak());
-        openSuccess("Твоя серия спасена 🔥");
-        break;
-      default:
-        if (item.skinKey) {
-          dispatch(setSkin(item.skinKey));
-          openSuccess(`Новый образ выбран: ${item.title}`);
-        }
-        break;
-    }
+    setModalTitle(result.title);
+    setModalText(result.text);
+    setModalMood(result.mood);
+    setModalOpen(true);
   };
 
   return (

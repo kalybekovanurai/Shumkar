@@ -1,14 +1,23 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistReducer } from "redux-persist";
+import {
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import playerReducer from "./player/playerSlice";
-import progressReducer from "./progress/progressSlice";
-import authReducer from "./auth/authSlice";
-import modulesReducer from "./modules/modulesSlice";
-import leadersReducer from "./leaders/leadersSlice";
-import lessonReducer from "./lesson/lessonSlice";
-import levelReducer from "./level/levelSlice";
-import achievementsReducer from "./achievements/achievementsSlice";
+
+import playerReducer from "../../entities/player/playerSlice";
+import progressReducer from "../../entities/progress/progressSlice";
+import authReducer from "../../features/auth/authSlice";
+import modulesReducer from "../../entities/modules/modulesSlice";
+import leadersReducer from "../../entities/leaders/leadersSlice";
+import lessonReducer from "../../entities/lesson/lessonSlice";
+import levelReducer from "../../entities/level/model/levelSlice";
+import achievementsReducer from "../../features/achievements/achievementsSlice";
 
 const rootReducer = combineReducers({
   player: playerReducer,
@@ -22,7 +31,7 @@ const rootReducer = combineReducers({
 });
 
 const persistConfig = {
-  key: "root",
+  key: "shumkar",
   storage,
   whitelist: ["player", "progress", "auth"],
 };
@@ -33,7 +42,9 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false,
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
     }),
 });
 

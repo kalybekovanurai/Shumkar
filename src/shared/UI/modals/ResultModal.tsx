@@ -1,5 +1,5 @@
-import { ShumkarCard } from "../../../features/game/ShumkarCard";
-import { Button } from "../Button";
+import { ShumkarCard } from "../../../features/game/ui/ShumkarCard";
+import { Button } from "../button/Button";
 
 type Props = {
   open: boolean;

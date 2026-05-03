@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import { MapPage } from "../../pages/MapPage";
-import { AppLayout } from "../../shared/layout/AppLayout";
-import { LessonPage } from "../../pages/LessonPage";
-import { LeadersPage } from "../../pages/LeadersPage";
-import { ProfilePage } from "../../pages/ProfilePage";
-import { LoginPage } from "../../pages/LoginPage";
-import { LevelGamePage } from "../../pages/LevelGamePage";
-import { AchievementsPage } from "../../pages/AchievmentsPage";
+import { MapPage } from "../../pages/map/MapPage";
+import { AppLayout } from "../../widgets/layout/AppLayout";
 import { ShopPage } from "../../pages/shop/ShopPage";
+import { LevelGamePage } from "../../pages/level-game/LevelGamePage";
+import { LessonPage } from "../../pages/lesson/LessonPage";
+import { ProfilePage } from "../../pages/profile/ProfilePage";
+import { LeadersPage } from "../../pages/leaders/LeadersPage";
+import { LoginPage } from "../../pages/login/LoginPage";
+import { AchievementsPage } from "../../pages/achievements/AchievmentsPage";
 
 export const AppRouter = () => {
   return (
