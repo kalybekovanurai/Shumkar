@@ -1,5 +1,4 @@
-import type { AuthUser } from "../../features/auth/authSlice";
-
+import type { AuthUser } from "../../../features/auth/authSlice";
 
 type Props = {
   user: AuthUser;
