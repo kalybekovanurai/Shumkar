@@ -1,4 +1,5 @@
-import type { Module, PathItem } from "../../entities/level/level";
+import type { Module } from "../../../entities/modules/types";
+import type { PathItem } from "../../../entities/level/model/types";
 
 const bonusIds = [901, 902, 903];
 

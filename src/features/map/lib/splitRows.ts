@@ -1,4 +1,4 @@
-import type { Level } from "../../entities/level/level";
+import type { Level } from "../../../entities/level/model/types";
 
 export const splitRows = (path: (Level | "chest")[]) => {
   const rows: (Level | "chest")[][] = [];

@@ -57,3 +57,7 @@ export interface SubmitLevelResponse {
   total: number;
   passed: boolean;
 }
+
+export type PathItem =
+  | { type: "level"; data: Level }
+  | { type: "chest"; quizId: number };

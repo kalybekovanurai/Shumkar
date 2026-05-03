@@ -1,4 +1,5 @@
-import { Button } from "../../../shared/ui/Button";
+import { Button } from "../../../shared/ui/button/Button";
+
 
 type Props = {
   canCheck: boolean;

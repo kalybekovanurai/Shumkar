@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import happyShumkar from "../../assets/images/happyShumkar.png";
 import { useAppDispatch, useAppSelector } from "../../app/store/hooks";
 import { getAchievements } from "../../features/achievements/achievementsThunk";
-import { PageBackgroundLayout } from "../../shared/ui/background/PageBackgroundLayout";
 import type { RootState } from "../../app/store";
+import { PageBackgroundLayout } from "../../shared/ui/background/PageBackgroundLayout";
 
 const baseLevelIds = [1, 2, 3, 4, 5, 6];
 

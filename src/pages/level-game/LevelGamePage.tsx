@@ -2,8 +2,8 @@ import { GameStatsCompact } from "../../features/game/ui/GameStatsCompact";
 import { ImageChoiceQuestion } from "../../features/game/ui/ImageChoiceQuestion";
 import { SequenceByClickGame } from "../../features/game/ui/SequenceByClickGame";
 import { useLevelGamePage } from "../../features/level-game/model/useLevelGamePage";
-import { ResultModal } from "../../shared/ui/modals/ResultModal";
 import background from "../../assets/images/backgroundOthers.png";
+import { ResultModal } from "../../shared/ui/modals/ResultModal";
 
 const pageBg = {
   backgroundImage: `linear-gradient(rgba(247,243,234,0.66), rgba(247,243,234,0.66)), url(${background})`,
