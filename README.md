@@ -53,11 +53,13 @@ src/
   shared/     # reusable components, utils, api
 
 
-  Key Principles
-Separation of concerns between UI, state, and business logic
-Game logic extracted into custom hooks
-Redux used as a single source of truth
-Local storage handled via redux-persist
+### Key Principles
+
+- Separation of concerns between UI, state, and business logic  
+- Game logic extracted into custom hooks  
+- Redux used as a single source of truth  
+- Local storage handled via redux-persist
+
 Getting Started
 git clone https://github.com/kalybekovanurai/Shumkar.git
 cd Shumkar
